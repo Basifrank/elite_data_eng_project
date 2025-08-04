@@ -9,8 +9,12 @@ Projects to stimulate transaction and API data, move to s3 and copy to redshift.
 3.	Write to s3
 4.	Use airflow copy command to move the data from s3 to redshift
 
+![Project A Dag](images/projectA_synthetic_dag.png)
+
 ## Fetch API Data and Load to Redshift (Project B)
 1.	Fetch data from an API
 2.	Setup a RDS instance
 3.	Use airflow to move your data from the API to the RDS instance
 3.	Then setup airbyte to connect to the rds instance and load the data on Redshift
+
+![Project B Dag](images/projectB_api_dag.png)
