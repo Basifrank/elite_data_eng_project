@@ -9,7 +9,7 @@ from airflow.providers.amazon.aws.transfers.s3_to_redshift import \
 from stimulated_data_code import generate_synthetic_transactions
 from stimulated_data_code import load_synthetic_data_to_s3
 from stimulated_data_code import create_synthetic_transactions_table
-#from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
+
 
 default_args = {
 
@@ -46,7 +46,7 @@ create_redshift_table = PythonOperator(
         task_id='create_redshift_table_data'
     )
 
-move_s3_to_redshift = S3ToRedshiftOperator(
+move_to_redshift = S3ToRedshiftOperator(
         task_id="copy_s3_to_redshift",
         redshift_conn_id="redshift_connection_id",
         s3_bucket="goziestimulateddata",
@@ -54,9 +54,9 @@ move_s3_to_redshift = S3ToRedshiftOperator(
         schema="PUBLIC",
         table="synthetic_transactions",
         copy_options=["FORMAT AS PARQUET"],
-        method="APPEND", 
+        method="APPEND",
         aws_conn_id="aws_default",
         dag=dag
     )
 
-generate_data >> load_data_to_s3 >> create_redshift_table >> move_s3_to_redshift
+generate_data >> load_data_to_s3 >> create_redshift_table >> move_to_redshift

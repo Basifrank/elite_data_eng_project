@@ -1,2 +1,4 @@
 awswrangler==3.11.0
 gspread == 6.2.1
+apache-airflow-providers-amazon
+apache-airflow-providers-postgres

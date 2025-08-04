@@ -26,13 +26,13 @@ dag = DAG(
 
 
 # Define the tasks
-extract_data = PythonOperator(
+get_data = PythonOperator(
         dag=dag,
         python_callable=get_google_sheet_data_public,
         task_id='get_google_sheet_data'
 )
 
-transform_data = PythonOperator(
+change_data = PythonOperator(
         dag=dag,
         python_callable=update_column_names,
         task_id='update_column_names'
@@ -44,16 +44,16 @@ create_table_rds = PythonOperator(
         task_id='create_table_in_rds'
 )
 
-write_data_rds = PythonOperator(
+write_to_rds = PythonOperator(
         dag=dag,
         python_callable=write_dataframe_to_rds_postgres,
         task_id='write_data_to_rds'
 )
 
-create_table_in_redshift = PythonOperator(
-        dag=dag,    
+create_reds_tab = PythonOperator(
+        dag=dag,
         python_callable=create_table_redshift,
         task_id='create_table_in_redshift'
 )
 
-extract_data >> transform_data >> create_table_rds >> write_data_rds >> create_table_in_redshift
+get_data >> change_data >> create_table_rds >> write_to_rds >> create_reds_tab

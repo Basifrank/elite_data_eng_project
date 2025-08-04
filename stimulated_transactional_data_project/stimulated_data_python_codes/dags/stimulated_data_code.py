@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from faker import Faker
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
+
 def generate_synthetic_transactions():
     """
     Generate synthetic transaction data and return it as a DataFrame.
@@ -79,4 +80,3 @@ def create_synthetic_transactions_table():
     cursor.execute(sql)
     cursor.close()
     conn.close()
-    

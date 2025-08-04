@@ -105,5 +105,3 @@ def create_table_redshift():
     cursor.execute(sql)
     cursor.close()
     conn.close()
-    
-
