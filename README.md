@@ -1,7 +1,7 @@
 # Elite_data_eng_projects
 Projects to stimulate transaction and API data, move to s3 and copy to redshift.
 
-![Summary of deliverables for both projects]<img src="images/projects_summary.png" alt="Description of image" width="200" height="150"/>
+![Summary of deliverables for both projects](images/projects_summary.png)
 
 ## stimulate and move transactional Data (Project A)
 1.	Simulate transaction dataset between 500000 to 1 million daily
