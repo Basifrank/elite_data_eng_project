@@ -4,17 +4,19 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from sheet_module_code import (create_table_in_rds_with_hook,
-                               get_google_sheet_data_public,
-                               update_column_names,
-                               write_dataframe_to_rds_postgres,
-                               create_table_redshift)
+from fetched_api_data_project.sheet_module import \
+                                (create_table_in_rds_with_hook,
+                                 get_google_sheet_data_public,
+                                 update_column_names,
+                                 write_dataframe_to_rds_postgres,
+                                 create_table_redshift)
 
 # Default arguments for the DAG
 default_args = {
-    'start_date': datetime.datetime(2023, 10, 1),
+    'start_date': datetime.datetime(2025, 8, 1),
     'retries': 2,
     'retry_delay': timedelta(seconds=5),
+    'catchup': False
 }
 
 dag = DAG(

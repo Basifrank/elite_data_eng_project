@@ -5,9 +5,9 @@ import awswrangler as wr
 import boto3
 import numpy as np
 import pandas as pd
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 from dotenv import load_dotenv
 from faker import Faker
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 
 def generate_synthetic_transactions():
@@ -55,13 +55,14 @@ def load_synthetic_data_to_s3():
     )
     raw_s3_bucket = "goziestimulateddata"
     raw_path_dir = "stimulateddata"
-    path = f"s3://{raw_s3_bucket}/{raw_path_dir}" + f"/{now}"
+    path = f"s3://{raw_s3_bucket}/{raw_path_dir}/{now}"
     wr.s3.to_parquet(
         df=df,
         path=path,
         dataset=True,
         mode="append",
-        boto3_session=session)
+        boto3_session=session
+        )
 
 
 def create_synthetic_transactions_table():

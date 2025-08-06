@@ -6,16 +6,17 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import \
     S3ToRedshiftOperator
 
-from stimulated_data_code import generate_synthetic_transactions
-from stimulated_data_code import load_synthetic_data_to_s3
-from stimulated_data_code import create_synthetic_transactions_table
+from stimulated_transactional_data_project.stimulated_data import \
+                                (create_synthetic_transactions_table,
+                                 generate_synthetic_transactions,
+                                 load_synthetic_data_to_s3)
 
 
 default_args = {
-
-    'start_date': datetime.datetime(2023, 10, 1),
+    'start_date': datetime.datetime(2025, 8, 1),
     'retries': 2,
     'retry_delay': timedelta(seconds=5),
+    'catchup': False
 }
 
 dag = DAG(
@@ -31,14 +32,13 @@ generate_data = PythonOperator(
         dag=dag,
         python_callable=generate_synthetic_transactions,
         task_id='generate_synthetic_data'
-    )
+        )
 
 load_data_to_s3 = PythonOperator(
         dag=dag,
         python_callable=load_synthetic_data_to_s3,
         task_id='load_synthetic_data_to_s3'
-    )
-
+        )
 
 create_redshift_table = PythonOperator(
         dag=dag,

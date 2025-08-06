@@ -63,7 +63,7 @@ def create_table_in_rds_with_hook():
     hook.run(sql)
 
 
-def write_dataframe_to_rds_postgres(if_exists: str = 'append'):
+def write_dataframe_to_rds_postgres():
     """
     Writes a Pandas DataFrame to a PostgreSQL table in an Amazon RDS instance.
 
@@ -85,7 +85,7 @@ def write_dataframe_to_rds_postgres(if_exists: str = 'append'):
 
         # Write the DataFrame to the SQL table
         dataframe.to_sql(name=table_name,
-                         con=engine, if_exists=if_exists, index=False)
+                         con=engine, if_exists='append', index=False)
     except Exception as e:
         print(f"Error writing DataFrame to RDS PostgreSQL: {e}")
 
