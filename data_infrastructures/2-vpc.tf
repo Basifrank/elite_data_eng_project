@@ -1,9 +1,10 @@
 resource "aws_vpc" "gozie_project_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support = true
+  enable_dns_support   = true
   tags = {
-    Name = "gozie_tf_vpc"
+    Name        = "gozie_tf_vpc"
+    Environment = "Dev"
   }
 }
 
@@ -12,7 +13,8 @@ resource "aws_internet_gateway" "gozie_project_igw" {
   vpc_id = aws_vpc.gozie_project_vpc.id
 
   tags = {
-    Name = "gozie_project_igw_tag"
+    Name        = "gozie_project_igw_tag"
+    Environment = "Dev"
   }
 }
 
@@ -25,9 +27,9 @@ resource "aws_subnet" "public_subnet_gozie_project" {
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
   tags = {
-    "Name" = "public_subnet_gozie_project"
-    
-}
+    Name        = "public_subnet_gozie_project"
+    Environment = "Dev"
+  }
 }
 
 # Route Table for the Public Subnet
@@ -42,7 +44,8 @@ resource "aws_route_table" "public_rt_gozie_tf" {
   }
 
   tags = {
-    Name = "public_subnet_route-table_gozie_project"
+    Name        = "public_subnet_route-table_gozie_project"
+    Environment = "Dev"
   }
 }
 
@@ -61,11 +64,11 @@ resource "aws_subnet" "public_subnet_gozie_project2" {
   vpc_id                  = aws_vpc.gozie_project_vpc.id
   cidr_block              = "10.0.32.0/19"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1b"
+  availability_zone       = "us-east-1b"
   tags = {
     "Name" = "public_subnet_gozie_project2"
-    
-}
+
+  }
 }
 
 # Route Table for the Public Subnet
@@ -165,13 +168,13 @@ resource "aws_route_table_association" "private_sub_gozie_tf" {
 # first rds subnet
 
 resource "aws_subnet" "public_subnet_gozie_project_rds" {
-  vpc_id            = aws_vpc.gozie_project_vpc.id
-  cidr_block        = "10.0.64.0/19"
+  vpc_id                  = aws_vpc.gozie_project_vpc.id
+  cidr_block              = "10.0.64.0/19"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1c" 
+  availability_zone       = "us-east-1c"
   tags = {
     "Name" = "public_sub_gozie_rds"
-    
+
   }
 }
 
@@ -200,13 +203,13 @@ resource "aws_route_table_association" "public_sub_gozie_rds" {
 # second rds subnet
 
 resource "aws_subnet" "public_subnet_gozie_project_rds2" {
-  vpc_id            = aws_vpc.gozie_project_vpc.id
-  cidr_block        = "10.0.96.0/19"
+  vpc_id                  = aws_vpc.gozie_project_vpc.id
+  cidr_block              = "10.0.96.0/19"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1d"
+  availability_zone       = "us-east-1d"
   tags = {
     "Name" = "public_sub_gozie_rds2"
-    
+
   }
 }
 
@@ -242,11 +245,11 @@ resource "aws_security_group" "sg_gozie_tf" {
   vpc_id      = aws_vpc.gozie_project_vpc.id
 
   ingress {
-    description = "sg_gozie_tf_https"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks  = ["0.0.0.0/0"]
+    description      = "sg_gozie_tf_https"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
     #cidr_blocks = [aws_vpc.gozie_tf.cidr_block]
   }
@@ -254,28 +257,28 @@ resource "aws_security_group" "sg_gozie_tf" {
   ingress {
     description = "sg_gozie_tf_http"
     # This rule allows HTTP traffic on port 80 from the VPC CIDR block
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks  = ["0.0.0.0/0"]
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
     #cidr_blocks = [aws_vpc.gozie_tf.cidr_block]
   }
 
   ingress {
-    description      = "Allow Redshift access from external SQL clients"
-    from_port        = 5439
-    to_port          = 5439
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] 
+    description = "Allow Redshift access from external SQL clients"
+    from_port   = 5439
+    to_port     = 5439
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    description      = "Allow Redshift access from external RDS clients"
-    from_port        = 5432
-    to_port          = 5432
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] 
+    description = "Allow Redshift access from external RDS clients"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
 
@@ -285,9 +288,7 @@ resource "aws_security_group" "sg_gozie_tf" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks  = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-    #cidr_blocks = [aws_vpc.gozie_tf.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
