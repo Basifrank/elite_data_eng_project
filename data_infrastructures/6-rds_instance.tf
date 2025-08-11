@@ -85,8 +85,8 @@ resource "aws_iam_role" "rds_monitoring_role" {
 
 resource "aws_iam_role_policy_attachment" "rds_monitoring_policy" {
   role       = aws_iam_role.rds_monitoring_role.name
-  policy_arn = aws_iam_role.rds_monitoring_role.arn
-  #policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+  #policy_arn = aws_iam_role.rds_monitoring_role.arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
 }
 
 # Create RDS Subnet Group

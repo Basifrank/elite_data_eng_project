@@ -4,7 +4,8 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from fetched_api_data_project.sheet_module import \
+
+from utils.fetched_api_data.sheet_module import \
                                 (create_table_in_rds_with_hook,
                                  get_google_sheet_data_public,
                                  update_column_names,
@@ -52,10 +53,10 @@ write_to_rds = PythonOperator(
         task_id='write_data_to_rds'
 )
 
-create_reds_tab = PythonOperator(
+create_rds_tab = PythonOperator(
         dag=dag,
         python_callable=create_table_redshift,
         task_id='create_table_in_redshift'
 )
 
-get_data >> change_data >> create_table_rds >> write_to_rds >> create_reds_tab
+get_data >> change_data >> create_table_rds >> write_to_rds >> create_rds_tab

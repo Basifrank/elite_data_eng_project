@@ -1,4 +1,0 @@
-awswrangler==3.11.0
-faker==37.4.2
-apache-airflow-providers-amazon
-apache-airflow-providers-postgres

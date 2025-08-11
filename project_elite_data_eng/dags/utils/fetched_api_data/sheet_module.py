@@ -44,11 +44,12 @@ def update_column_names():
     Returns:
         df: df with updated names.
     """
-    df = get_google_sheet_data_public()
-    strip_space_lowecase = [col.strip().lower() for col in df.columns.tolist()]
+    google_dataframe = get_google_sheet_data_public()
+    strip_space_lowecase = [col.strip().lower() for col in
+                            google_dataframe.columns.tolist()]
     rename_cols = [col.replace(" ", "_") for col in strip_space_lowecase]
-    df.columns = rename_cols
-    return df
+    google_dataframe.columns = rename_cols
+    return google_dataframe
 
 
 def create_table_in_rds_with_hook():
@@ -71,11 +72,11 @@ def write_dataframe_to_rds_postgres():
     load_dotenv()
     dataframe = update_column_names()
     table_name = "my_rds_table"
-    db_host = os.getenv("db_host")
+    db_host = os.getenv("postgres_db_host")
     db_port = 5432
-    db_name = os.getenv("db_name")
-    db_user = os.getenv("db_user")
-    db_password = os.getenv("db_password")
+    db_name = os.getenv("postgres_db_name")
+    db_user = os.getenv("postgres_db_user")
+    db_password = os.getenv("postgres_db_password")
 
     try:
         # Create the database engine
@@ -91,7 +92,7 @@ def write_dataframe_to_rds_postgres():
 
 
 def create_table_redshift():
-    hook = PostgresHook(postgres_conn_id='my-redshift-cluster')
+    hook = PostgresHook(postgres_conn_id='redshift_connection_id')
     conn = hook.get_conn()
     conn.autocommit = True
     cursor = conn.cursor()

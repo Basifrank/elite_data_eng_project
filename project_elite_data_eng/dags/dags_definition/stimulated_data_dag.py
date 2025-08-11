@@ -3,13 +3,14 @@ from datetime import timedelta
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import \
     S3ToRedshiftOperator
 
-from stimulated_transactional_data_project.stimulated_data import \
-                                (create_synthetic_transactions_table,
-                                 generate_synthetic_transactions,
-                                 load_synthetic_data_to_s3)
+from utils.stimulated_transactional_data.stimulated_data import \
+    (create_synthetic_transactions_table,
+     generate_synthetic_transactions,
+     load_synthetic_data_to_s3)
 
 
 default_args = {
