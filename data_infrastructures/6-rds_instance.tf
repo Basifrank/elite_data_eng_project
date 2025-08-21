@@ -4,6 +4,23 @@ resource "aws_db_parameter_group" "airbyte_postgres_params" {
   description = "Custom parameter group for Airbyte logical replication"
 
   # Parameters to set
+  # Setting parameters to allow connection
+  parameter {
+    name  = "log_connections"
+    value = "1"
+  }
+
+  parameter {
+    name  = "log_disconnections"
+    value = "1"
+  }
+
+    # to control SSL enforcement
+  parameter {
+   name  = "rds.force_ssl"
+     value = "0"
+  }
+
   parameter {
     name         = "rds.logical_replication"
     value        = "1"
