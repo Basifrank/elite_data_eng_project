@@ -24,3 +24,5 @@ The aim of this project are:
 ![Project B Dag](images/projectB_api_dag.png)
 
 6. Utilized airbyte to move data from the rds to amazon redshift.
+
+![Data Sync](images/rds_to_redshift.png)
