@@ -34,7 +34,7 @@ resource "aws_subnet" "public_subnet_gozie_project" {
 
 # Route Table for the Public Subnet
 # This route table is associated with the public subnet and routes traffic to the Internet Gateway.
-# It allows resources in the public subnet to access the internet.
+
 resource "aws_route_table" "public_rt_gozie_tf" {
   vpc_id = aws_vpc.gozie_project_vpc.id
 
@@ -58,7 +58,6 @@ resource "aws_route_table_association" "public_sub_gozie_tf" {
 
 
 # Public Subnet for the VPC
-# This subnet is used for resources that need to be accessible from the internet.
 # It is associated with the Internet Gateway for outbound internet access.
 resource "aws_subnet" "public_subnet_gozie_project2" {
   vpc_id                  = aws_vpc.gozie_project_vpc.id
@@ -74,7 +73,7 @@ resource "aws_subnet" "public_subnet_gozie_project2" {
 
 # Route Table for the Public Subnet
 # This route table is associated with the public subnet and routes traffic to the Internet Gateway.
-# It allows resources in the public subnet to access the internet.
+
 resource "aws_route_table" "public_rt_gozie_tf2" {
   vpc_id = aws_vpc.gozie_project_vpc.id
 
@@ -123,7 +122,6 @@ resource "aws_route_table" "public_rt_gozie_rds" {
 }
 
 # This route table is associated with the public subnet and routes traffic to the Internet Gateway.
-# It allows resources in the public subnet to access the internet.
 
 resource "aws_route_table_association" "public_sub_gozie_rds" {
   subnet_id      = aws_subnet.public_subnet_gozie_project_rds.id
@@ -161,7 +159,6 @@ resource "aws_route_table" "public_rt_gozie_rds2" {
 }
 
 # This route table is associated with the public subnet and routes traffic to the Internet Gateway.
-# It allows resources in the public subnet to access the internet.
 
 resource "aws_route_table_association" "public_sub_gozie_rds2" {
   subnet_id      = aws_subnet.public_subnet_gozie_project_rds2.id
