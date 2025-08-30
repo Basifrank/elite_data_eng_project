@@ -20,7 +20,7 @@ resource "aws_internet_gateway" "gozie_project_igw" {
 
 # Public Subnet for the VPC
 # This subnet is used for resources that need to be accessible from the internet.
-# It is associated with the Internet Gateway for outbound internet access.
+
 resource "aws_subnet" "public_subnet_gozie_project" {
   vpc_id                  = aws_vpc.gozie_project_vpc.id
   cidr_block              = "10.0.0.0/19"

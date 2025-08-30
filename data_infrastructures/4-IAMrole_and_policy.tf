@@ -6,16 +6,7 @@ resource "aws_iam_policy" "redshift_custom_s3_policy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      # {
-      #   Effect   = "Allow"
-      #   Action   = "s3:ListBucket"
-      #   Resource = "arn:aws:s3:::goziestimulateddata/*"
-      #   Condition = {
-      #     StringEquals = {
-      #       "s3:prefix" = "goziestimulateddata"
-      #     }
-      #   }
-      # },
+      
       {
         Effect = "Allow"
         Action = [
